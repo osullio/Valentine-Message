@@ -2,73 +2,371 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Be My Valentine 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aoife, Be My Valentine? 💘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #ffe6ee;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      text-align: center;
+      overflow: hidden;
+      position: relative;
     }
+
+    /* Floating hearts background */
+    .heart-bg {
+      position: fixed;
+      font-size: 20px;
+      opacity: 0.15;
+      animation: float 15s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(5deg); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 500px;
+      width: 90%;
+    }
+
     .box {
-      background: white;
-      padding: 30px;
+      background: rgba(255, 255, 255, 0.98);
+      padding: 50px 40px;
+      border-radius: 30px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      text-align: center;
+      animation: slideIn 0.6s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,182,193,0.3) 0%, transparent 70%);
+      animation: glow 3s infinite ease-in-out;
+    }
+
+    @keyframes glow {
+      0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+      50% { transform: translate(20px, 20px); opacity: 0.8; }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5em;
+      color: #e91e63;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      animation: bounce 1s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .meme-container {
+      margin: 25px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .meme-img {
+      max-width: 250px;
+      width: 100%;
       border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      animation: fadeIn 0.5s ease-out;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .button-container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
     button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
+      padding: 15px 35px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Quicksand', sans-serif;
       border: none;
-      border-radius: 8px;
+      border-radius: 50px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
     }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
     .yes {
-      background: #ff4d6d;
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff3366 100%);
       color: white;
+      animation: pulse 2s infinite;
     }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .yes:hover {
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0 10px 30px rgba(255, 51, 102, 0.5);
+    }
+
     .no {
-      background: #ccc;
+      background: #e0e0e0;
+      color: #666;
+    }
+
+    .no:hover {
+      background: #d0d0d0;
+      transform: scale(0.95);
+    }
+
+    .success-message {
+      animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      60% {
+        transform: scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .success-message h1 {
+      font-size: 3em;
+      color: #ff3366;
+    }
+
+    .success-message p {
+      font-size: 1.3em;
+      color: #555;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #ff3366;
+      animation: confettiFall 3s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1em;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Special growing Yes button effect */
+    .yes.growing {
+      animation: grow 0.3s ease-out forwards;
+    }
+
+    @keyframes grow {
+      to {
+        padding: 18px 45px;
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Floating hearts background -->
+  <div class="heart-bg" style="top: 10%; left: 15%;">💖</div>
+  <div class="heart-bg" style="top: 20%; right: 20%; animation-delay: 2s;">💕</div>
+  <div class="heart-bg" style="bottom: 15%; left: 25%; animation-delay: 4s;">💗</div>
+  <div class="heart-bg" style="top: 60%; right: 15%; animation-delay: 1s;">💝</div>
+  <div class="heart-bg" style="bottom: 30%; right: 30%; animation-delay: 3s;">💘</div>
+  <div class="heart-bg" style="top: 40%; left: 10%; animation-delay: 5s;">❤️</div>
 
-<div class="box" id="content">
-  <h1>Will you be my Valentine? 💖</h1>
-  <button class="yes" onclick="yes()">Yes</button>
-  <button class="no" onclick="no()">No</button>
-</div>
+  <div class="container">
+    <div class="box" id="content">
+      <h1>Aoife, will you be my Valentine? 💖</h1>
+      <p class="subtitle">Choose wisely... 😏</p>
+      
+      <div class="meme-container">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23FFE5E5' width='400' height='300'/%3E%3Ctext x='200' y='120' font-family='Arial' font-size='40' fill='%23FF1744' text-anchor='middle' font-weight='bold'%3EPOV:%3C/text%3E%3Ctext x='200' y='170' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle'%3EYou're about to make%3C/text%3E%3Ctext x='200' y='210' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle'%3Ethe best decision%3C/text%3E%3Ctext x='200' y='250' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle'%3Eof your life 👇%3C/text%3E%3C/svg%3E" alt="POV Meme" class="meme-img" id="memeImg">
+      </div>
 
-<script>
-  let noCount = 0;
+      <div class="button-container">
+        <button class="yes" onclick="yes()">Yes! 💕</button>
+        <button class="no" onclick="no()">No</button>
+      </div>
+    </div>
+  </div>
 
-  function yes() {
-    document.getElementById("content").innerHTML = `
-      <h1>YAY!!! 💘🥰</h1>
-      <p>I’m so lucky to have you.<br>
-      Happy Valentine’s Day ❤️</p>
-    `;
-  }
-
-  function no() {
-    noCount++;
-    const messages = [
-      "Are you sure? 🥺",
-      "Like… REALLY sure?",
-      "I’ll make it worth it 👀",
-      "Okay but imagine chocolate and cuddles",
-      "Try again 😌💖"
+  <script>
+    let noCount = 0;
+    const memes = [
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23FFE5E5' width='400' height='300'/%3E%3Ctext x='200' y='120' font-family='Arial' font-size='40' fill='%23FF1744' text-anchor='middle' font-weight='bold'%3EPOV:%3C/text%3E%3Ctext x='200' y='170' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle'%3EYou're about to make%3C/text%3E%3Ctext x='200' y='210' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle'%3Ethe best decision%3C/text%3E%3Ctext x='200' y='250' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle'%3Eof your life 👇%3C/text%3E%3C/svg%3E",
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23FFF9C4' width='400' height='300'/%3E%3Ctext x='200' y='100' font-family='Arial' font-size='32' fill='%23333' text-anchor='middle' font-weight='bold'%3EMe waiting for you%3C/text%3E%3Ctext x='200' y='150' font-family='Arial' font-size='32' fill='%23333' text-anchor='middle' font-weight='bold'%3Eto click Yes:%3C/text%3E%3Ctext x='200' y='220' font-family='Arial' font-size='80' text-anchor='middle'%3E🥺%3C/text%3E%3C/svg%3E",
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23E1F5FE' width='400' height='300'/%3E%3Ctext x='200' y='90' font-family='Arial' font-size='28' fill='%23333' text-anchor='middle' font-weight='bold'%3EThink about it:%3C/text%3E%3Ctext x='200' y='140' font-family='Arial' font-size='22' fill='%23333' text-anchor='middle'%3E✅ Free cuddles%3C/text%3E%3Ctext x='200' y='175' font-family='Arial' font-size='22' fill='%23333' text-anchor='middle'%3E✅ Unlimited love%3C/text%3E%3Ctext x='200' y='210' font-family='Arial' font-size='22' fill='%23333' text-anchor='middle'%3E✅ Someone who thinks%3C/text%3E%3Ctext x='200' y='240' font-family='Arial' font-size='22' fill='%23333' text-anchor='middle'%3Eyou're amazing%3C/text%3E%3Ctext x='200' y='275' font-family='Arial' font-size='22' fill='%23FF1744' text-anchor='middle' font-weight='bold'%3EIt's a no-brainer! 🧠%3C/text%3E%3C/svg%3E",
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23F3E5F5' width='400' height='300'/%3E%3Ctext x='200' y='100' font-family='Arial' font-size='30' fill='%23333' text-anchor='middle' font-weight='bold'%3ENo one:%3C/text%3E%3Ctext x='200' y='150' font-family='Arial' font-size='30' fill='%23333' text-anchor='middle' font-weight='bold'%3EAbsolutely no one:%3C/text%3E%3Ctext x='200' y='200' font-family='Arial' font-size='28' fill='%23FF1744' text-anchor='middle' font-weight='bold'%3EYou: Still clicking No%3C/text%3E%3Ctext x='200' y='250' font-family='Arial' font-size='60' text-anchor='middle'%3E🤔%3C/text%3E%3C/svg%3E",
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23FFEBEE' width='400' height='300'/%3E%3Ctext x='200' y='90' font-family='Arial' font-size='26' fill='%23333' text-anchor='middle' font-weight='bold'%3EListen... I don't want to%3C/text%3E%3Ctext x='200' y='130' font-family='Arial' font-size='26' fill='%23333' text-anchor='middle' font-weight='bold'%3Epressure you but...%3C/text%3E%3Ctext x='200' y='190' font-family='Arial' font-size='70' text-anchor='middle'%3E🥺%3C/text%3E%3Ctext x='200' y='240' font-family='Arial' font-size='20' fill='%23FF1744' text-anchor='middle'%3E*puppy dog eyes intensify*%3C/text%3E%3Ctext x='200' y='270' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle' font-weight='bold'%3Eplease? 💕%3C/text%3E%3C/svg%3E"
     ];
-    document.querySelector("h1").innerText =
-      messages[Math.min(noCount - 1, messages.length - 1)];
-  }
-</script>
 
+    const messages = [
+      { title: "Are you sure? 🥺", subtitle: "Think about all the fun we'll have!" },
+      { title: "Really? 😢", subtitle: "I promise I'll make you smile every day" },
+      { title: "But... but... 🥹", subtitle: "I've already planned our date!" },
+      { title: "This is your last chance! 😤", subtitle: "Okay not really, I'm too nice for that" },
+      { title: "Fine, I see how it is 😏", subtitle: "Just kidding, click Yes! You know you want to!" }
+    ];
+
+    function yes() {
+      createConfetti();
+      document.getElementById("content").innerHTML = `
+        <div class="success-message">
+          <h1>YESSSS!!! 🎉💘✨</h1>
+          <div class="meme-container">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23FFE5E5' width='400' height='300'/%3E%3Ctext x='200' y='80' font-family='Arial' font-size='40' fill='%23FF1744' text-anchor='middle' font-weight='bold'%3ELETS GOOO! 🚀%3C/text%3E%3Ctext x='200' y='150' font-family='Arial' font-size='80' text-anchor='middle'%3E🎊%3C/text%3E%3Ctext x='200' y='210' font-family='Arial' font-size='24' fill='%23333' text-anchor='middle'%3EBest. Decision. Ever.%3C/text%3E%3Ctext x='200' y='250' font-family='Arial' font-size='30' text-anchor='middle'%3E❤️ 💕 💖 💗%3C/text%3E%3C/svg%3E" alt="Success" class="meme-img">
+          </div>
+          <p>Hahah never doubted you xx 🥰<br>
+          Get ready for the best Valentine's Day ever! ps I love you eef 💝<br>
+          <br>
+          <strong style="color: #ff3366;">I love you! ❤️</strong></p>
+        </div>
+      `;
+    }
+
+    function no() {
+      noCount++;
+      
+      // Make Yes button bigger and No button smaller each time
+      const yesBtn = document.querySelector('.yes');
+      const noBtn = document.querySelector('.no');
+      
+      const yesPadding = 15 + (noCount * 3);
+      const yesFontSize = 18 + (noCount * 2);
+      const noPadding = Math.max(5, 15 - (noCount * 2));
+      const noFontSize = Math.max(10, 18 - (noCount * 1.5));
+      
+      yesBtn.style.padding = `${yesPadding}px ${yesPadding * 2}px`;
+      yesBtn.style.fontSize = `${yesFontSize}px`;
+      noBtn.style.padding = `${noPadding}px ${noPadding * 2}px`;
+      noBtn.style.fontSize = `${noFontSize}px`;
+      
+      // Update content
+      const messageIndex = Math.min(noCount - 1, messages.length - 1);
+      const memeIndex = Math.min(noCount, memes.length - 1);
+      
+      document.querySelector("h1").innerText = messages[messageIndex].title;
+      document.querySelector(".subtitle").innerText = messages[messageIndex].subtitle;
+      
+      // Update meme
+      const memeImg = document.getElementById('memeImg');
+      memeImg.style.animation = 'none';
+      setTimeout(() => {
+        memeImg.src = memes[memeIndex];
+        memeImg.style.animation = 'fadeIn 0.5s ease-out';
+      }, 10);
+      
+      // Make No button harder to click
+      if (noCount >= 3) {
+        noBtn.style.position = 'relative';
+        noBtn.onmouseover = () => {
+          const randomX = (Math.random() - 0.5) * 200;
+          const randomY = (Math.random() - 0.5) * 100;
+          noBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(${1 - (noCount * 0.1)})`;
+        };
+      }
+    }
+
+    function createConfetti() {
+      const colors = ['#ff3366', '#ff6b9d', '#ffd700', '#ff1744', '#f50057', '#ff4081'];
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDelay = Math.random() * 3 + 's';
+          confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => confetti.remove(), 5000);
+        }, i * 30);
+      }
+    }
+  </script>
 </body>
 </html>
