@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💘</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffe6ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+    .no {
+      background: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box" id="content">
+  <h1>Will you be my Valentine? 💖</h1>
+  <button class="yes" onclick="yes()">Yes</button>
+  <button class="no" onclick="no()">No</button>
+</div>
+
+<script>
+  let noCount = 0;
+
+  function yes() {
+    document.getElementById("content").innerHTML = `
+      <h1>YAY!!! 💘🥰</h1>
+      <p>I’m so lucky to have you.<br>
+      Happy Valentine’s Day ❤️</p>
+    `;
+  }
+
+  function no() {
+    noCount++;
+    const messages = [
+      "Are you sure? 🥺",
+      "Like… REALLY sure?",
+      "I’ll make it worth it 👀",
+      "Okay but imagine chocolate and cuddles",
+      "Try again 😌💖"
+    ];
+    document.querySelector("h1").innerText =
+      messages[Math.min(noCount - 1, messages.length - 1)];
+  }
+</script>
+
+</body>
+</html>
